@@ -22,24 +22,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l52-ED-afy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="549"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="613"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cRy-hV-XMt">
+                                <gestureRecognizers/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YvG-kp-U6d">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatCell" id="rY2-MH-8SZ">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatCell" id="rY2-MH-8SZ" customClass="ChatMessageCell" customModule="firebaseTest" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s5i-on-64e">
+                                                    <rect key="frame" x="30" y="16" width="240" height="128"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDx-bi-0Bh">
+                                                            <rect key="frame" x="99" y="54" width="42" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
                                         </view>
+                                        <connections>
+                                            <outlet property="containerView" destination="s5i-on-64e" id="uvw-hp-bh0"/>
+                                            <outlet property="textLabel" destination="dDx-bi-0Bh" id="yQ5-dt-sb8"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="exj-VA-VWz" appends="YES" id="gk2-gx-k1U"/>
+                                </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOC-gf-cjv">
                                 <rect key="frame" x="0.0" y="613" width="375" height="54"/>
@@ -77,11 +101,12 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="l52-ED-afy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7p0-38-FJi"/>
-                            <constraint firstItem="l52-ED-afy" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="GsN-S8-1L7"/>
                             <constraint firstItem="DOC-gf-cjv" firstAttribute="top" secondItem="l52-ED-afy" secondAttribute="bottom" id="HRE-tn-o0B"/>
                             <constraint firstItem="DOC-gf-cjv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ODw-BS-oek"/>
+                            <constraint firstItem="l52-ED-afy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="QtT-oO-id6"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DOC-gf-cjv" secondAttribute="bottom" id="aRf-1G-ShK"/>
                             <constraint firstAttribute="trailing" secondItem="l52-ED-afy" secondAttribute="trailing" id="net-Gd-Fo7"/>
                             <constraint firstAttribute="trailing" secondItem="DOC-gf-cjv" secondAttribute="trailing" id="pd2-s1-PN8"/>
@@ -96,8 +121,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="exj-VA-VWz">
+                    <connections>
+                        <action selector="collectionViewTapped:" destination="BYZ-38-t0r" id="tRg-u8-wBC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3631" y="-502"/>
+            <point key="canvasLocation" x="3629.5999999999999" y="-502.39880059970017"/>
         </scene>
         <!--Log In-->
         <scene sceneID="Ecf-HY-wbe">
@@ -170,7 +200,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dOL-sJ-IaX" id="m3c-dQ-ror">
-                                            <rect key="frame" x="0.0" y="0.0" width="336" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="336" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
