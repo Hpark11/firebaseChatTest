@@ -24,6 +24,7 @@ class FirebaseDataService {
     // message : 채팅 말풍선 하나 단위
     let messageRef = baseRef.child("message")
     
+    
     // 현재 접속중인 유저의 uid
     var currentUserUid: String? {
         get {

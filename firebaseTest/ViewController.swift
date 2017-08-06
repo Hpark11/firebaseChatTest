@@ -11,6 +11,11 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var item: UINavigationItem!
+    @IBOutlet weak var chatCollectionView: UICollectionView!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var chatTextField: UITextField!
+    
+    var messages: [ChatMessage] = [ChatMessage(fromUserId: "", text: "", timestamp: 0)]
     
     var groupKey: String? {
         didSet {
@@ -27,12 +32,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
         }
     }
     
-    var messages: [ChatMessage] = [ChatMessage(fromUserId: "", text: "", timestamp: 0)]
-    
-    @IBOutlet weak var chatCollectionView: UICollectionView!
-    @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var chatTextField: UITextField!
-    
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
@@ -44,6 +43,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
         let message = messages[indexPath.item]
         cell.textLabel.text = message.text
         setupChatCell(cell: cell, message: message)
+        if indexPath.row == messages.count - 1 {
+            cell.containerView.backgroundColor = UIColor.white
+        }
+        
         if message.text.characters.count > 0 {
             cell.containerViewWidthAnchor?.constant = measuredFrameHeightForEachMessage(message: message.text).width + 32
         }
@@ -119,7 +122,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
                     self.chatCollectionView.reloadData()
                     if self.messages.count >= 1 {
                         let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
-                        self.chatCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
+                        //self.chatCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
                     }
                 })
             })
