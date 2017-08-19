@@ -21,9 +21,10 @@ class UserListViewController: UIViewController, UITableViewDelegate, UITableView
                 for (key, data) in data {
                     if uid != key {
                         if let userData = data as? Dictionary<String, AnyObject> {
+                            let toUid = key
                             let username = userData["name"] as! String
                             let email = userData["email"] as! String
-                            let user = User(uid: uid, email: email, username: username)
+                            let user = User(uid: toUid, email: email, username: username)
                             self.userList.append(user)
                             
                             DispatchQueue.main.async(execute: { 
@@ -46,6 +47,7 @@ class UserListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let ref = FirebaseDataService.instance.groupRef.childByAutoId()
         ref.child("name").setValue(userList[indexPath.row].username as String)
+        ref.updateChildValues(["name": userList[indexPath.row].username, "to": userList[indexPath.row].uid])
         dismiss(animated: true) { 
             if let chatGroupVC = self.chatGroupVC {
                 chatGroupVC.performSegue(withIdentifier: "chatting", sender: ref.key)

@@ -168,6 +168,7 @@
 				TargetAttributes = {
 					81D315111EAED11F001E2D39 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = R2ESGSL5P9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -390,7 +391,9 @@
 			baseConfigurationReference = A5871E68431BE33BD34ADD2D /* Pods-firebaseTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = R2ESGSL5P9;
 				INFOPLIST_FILE = firebaseTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.firebaseTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -403,7 +406,9 @@
 			baseConfigurationReference = 49D056D60C71B732717B64A8 /* Pods-firebaseTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = R2ESGSL5P9;
 				INFOPLIST_FILE = firebaseTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.firebaseTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

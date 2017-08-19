@@ -17,6 +17,10 @@ class ChatGroupViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchChatGroupList()
     }
     
@@ -24,8 +28,8 @@ class ChatGroupViewController: UIViewController, UITableViewDelegate, UITableVie
         if let uid = FirebaseDataService.instance.currentUserUid {
             FirebaseDataService.instance.userRef.child(uid).child("groups").observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dict = snapshot.value as? Dictionary<String, Int> {
+                    self.groups.removeAll()
                     for (key, _) in dict {
-                        
                         FirebaseDataService.instance.groupRef.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
                             if let data = snapshot.value as? Dictionary<String, AnyObject> {
                                 let group = Group(key: key, data: data)

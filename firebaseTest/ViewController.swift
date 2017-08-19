@@ -15,6 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
     @IBOutlet weak var sendButton: UIButton!
     @IBOutlet weak var chatTextField: UITextField!
     
+    var height: CGFloat = 0.0
     var messages: [ChatMessage] = [ChatMessage(fromUserId: "", text: "", timestamp: 0)]
     
     var groupKey: String? {
@@ -26,11 +27,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
                         if let title = data["name"] as? String {
                             self.item.title = title
                         }
+                        if let toId = data["to"] as? String {
+                            self.participantId = toId
+                        }
                     }
                 })
             }
         }
     }
+    
+    var participantId: String?
     
     // numberOfItemsInSection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -93,8 +99,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
             }
             
             self.chatTextField.text = nil
-            if let groupId = self.groupKey {
+            if let groupId = self.groupKey, let toId = self.participantId {
                 FirebaseDataService.instance.groupRef.child(groupId).child("messages").updateChildValues([ref.key: 1])
+                FirebaseDataService.instance.userRef.child(fromUserId).child("groups").updateChildValues([groupId: 1])
+                FirebaseDataService.instance.userRef.child(toId).child("groups").updateChildValues([groupId: 1])
             }
         }
     }
@@ -124,6 +132,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
                         let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
                         //self.chatCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition(), animated: true)
                     }
+                    self.chatCollectionView.frame.origin.y = self.height
                 })
             })
         }
@@ -153,12 +162,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDel
     // get keyboard height and shift the view from bottom to higher
     func keyboardWillShow(_ notification: Notification) {
         if chatTextField.isFirstResponder {
-            view.frame.origin.y = -getKeyboardHeight(notification)
+            height = getKeyboardHeight(notification)
+            chatCollectionView.frame.origin.y = height
+            view.frame.origin.y = -height
         }
     }
     
     func keyboardWillHide(_ notification: Notification) {
         if chatTextField.isFirstResponder {
+            chatCollectionView.frame.origin.y = 0
             view.frame.origin.y = 0
         }
     }
